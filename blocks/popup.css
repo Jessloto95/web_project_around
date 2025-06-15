@@ -87,11 +87,17 @@
   }
   .popup__conteiner {
     max-width: 280px;
+    padding: 0 10px;
+  }
+
+  .popup__content {
+    padding: 20px;
+    box-sizing: border-box;
   }
 
   .popup__button_close {
-    position: absolute;
-    right: -2px;
+    right: -5px;
+    top: -40px;
   }
 
   .popup__title {
