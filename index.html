@@ -12,7 +12,8 @@
   <body>
     <div class="page">
       <div class="popup">
-        <div class="popup__conteiner">
+        <!-- Form Popup Edit -->
+        <div class="popup__conteiner" id="editProfile">
           <button class="popup__button popup__button_close">&#x1F7A9;</button>
           <form class="popup__content">
             <h2 class="popup__title">Editar perfil</h2>
@@ -32,6 +33,38 @@
               <button class="popup__button popup__button_save">Guardar</button>
             </fieldset>
           </form>
+        </div>
+        <!-- Form Popup Add Image -->
+        <div class="popup__conteiner" id="addImage">
+          <button class="popup__button popup__button_close">&#x1F7A9;</button>
+          <form class="popup__content">
+            <h2 class="popup__title">Nuevo Lugar</h2>
+            <fieldset class="popup__form">
+              <input
+                type="text"
+                class="popup__input popup__input_name"
+                placeholder="Nombre"
+              />
+              <input
+                type="text"
+                class="popup__input popup__input_hobbie"
+                placeholder="Acerca de mi"
+              />
+            </fieldset>
+            <fieldset class="popup__form">
+              <button class="popup__button popup__button_save">Guardar</button>
+            </fieldset>
+          </form>
+        </div>
+        <!-- Form Popup Image -->
+        <div class="popup__conteiner popup__conteiner_image">
+          <button class="popup__button popup__button_close">&#x1F7A9;</button>
+          <img
+            class="popup__image"
+            src="https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg"
+            alt=""
+          />
+          <h3 class="popup__image-title">Valle de Yosemite</h3>
         </div>
       </div>
       <header class="header">
@@ -71,13 +104,15 @@
             />
           </button>
         </section>
+        <!-- Tarjetas-->
         <section class="card">
-          <div class="card__content">
+          <!--<div class="card__content">
             <img
               class="card__photo"
               src="./images/Valle-de-Yosemite.png"
               alt="valle-yosemite"
             />
+            <button class="card__button-delete"></button>
             <div class="card__info">
               <p class="card__photo-name">Valle de Yosemite</p>
               <button class="card__button-like">
@@ -172,13 +207,33 @@
                 />
               </button>
             </div>
-          </div>
+          </div>-->
         </section>
       </main>
       <footer class="footer">
         <p class="footer__copyright">© 2024 Around The U.S.</p>
       </footer>
     </div>
+    <template class="template-card">
+      <div class="card__content">
+        <img
+          class="card__photo"
+          src="./images/Valle-de-Yosemite.png"
+          alt="valle-yosemite"
+        />
+        <button class="card__button-delete"></button>
+        <div class="card__info">
+          <p class="card__photo-name">Valle de Yosemite</p>
+          <button class="card__button-like">
+            <img
+              class="card__button-like-image"
+              src="./images/button_like.png"
+              alt="Boton de like"
+            />
+          </button>
+        </div>
+      </div>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

@@ -1,13 +1,10 @@
-let form = document.querySelector("#editProfile");
+let form = document.querySelector(".popup__content");
 let inputName = document.querySelector(".popup__input_name");
 let inputHobbie = document.querySelector(".popup__input_hobbie");
 let infName = document.querySelector(".profile__name");
 let infHobbie = document.querySelector(".profile__hobbie");
 let butEdit = document.querySelector(".profile__edit-button");
 let butClose = document.querySelector(".popup__button_close");
-const templateCard = document.querySelector(".template-card");
-const cardList = document.querySelector(".card");
-
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -35,29 +32,6 @@ const initialCards = [
   },
 ];
 
-//function cardsInitials() {
-// initialCards.forEach (item) {
-
-//  }
-//}
-
-initialCards.forEach(function (item) {
-  createCard(item.name, item.link);
-});
-
-function createCard(name, link) {
-  const cloneCard = templateCard.content
-    .querySelector(".card__content")
-    .cloneNode(true);
-  console.log(cloneCard);
-  const cardTitle = cloneCard.querySelector(".card__photo-name");
-  const cardImage = cloneCard.querySelector(".card__photo");
-  cardTitle.textContent = name;
-  cardList.append(cloneCard);
-  cardImage.src = link;
-}
-
-//funcion para abrir editar perfil
 function open(evt) {
   let popup = document.querySelector(".popup");
   inputName.value = infName.textContent;
@@ -65,7 +39,6 @@ function open(evt) {
   popup.classList.add("popup_opened");
 }
 
-//Boton de guardar
 function save(evt) {
   evt.preventDefault();
   infName.textContent = inputName.value;
@@ -73,7 +46,6 @@ function save(evt) {
   close();
 }
 
-//Funcion para cerrar
 function close(evt) {
   let popup = document.querySelector(".popup");
   popup.classList.remove("popup_opened");
@@ -81,4 +53,9 @@ function close(evt) {
 
 form.addEventListener("submit", save);
 butClose.addEventListener("click", close);
-butEdit.addEventListener("click", open);
+butEdit.addEventListener("click", open); //let formElement = document.querySelector(".popup__content")
+//console.log(formElement)
+
+//formElement.addEventListener('submit', handleProfileFormSubmit);
+
+//function handleProfileFormSubmit(evt) {console.log("funciona")}
