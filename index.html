@@ -11,10 +11,12 @@
   </head>
   <body>
     <div class="page">
-      <div class="popup">
+      <div class="popup" id="editProfile">
         <!-- Form Popup Edit -->
-        <div class="popup__conteiner" id="editProfile">
-          <button class="popup__button popup__button_close">&#x1F7A9;</button>
+        <div class="popup__conteiner">
+          <button class="popup__button popup__button_close" id="buttonEdit">
+            &#x1F7A9;
+          </button>
           <form class="popup__content">
             <h2 class="popup__title">Editar perfil</h2>
             <fieldset class="popup__form">
@@ -34,21 +36,28 @@
             </fieldset>
           </form>
         </div>
-        <!-- Form Popup Add Image -->
-        <div class="popup__conteiner" id="addImage">
-          <button class="popup__button popup__button_close">&#x1F7A9;</button>
+      </div>
+      <!-- Form Popup Add Image -->
+      <div class="popup" id="addImage">
+        <div class="popup__conteiner">
+          <button
+            class="popup__button popup__button_close"
+            id="buttoneditImage"
+          >
+            &#x1F7A9;
+          </button>
           <form class="popup__content">
             <h2 class="popup__title">Nuevo Lugar</h2>
             <fieldset class="popup__form">
               <input
                 type="text"
                 class="popup__input popup__input_name"
-                placeholder="Nombre"
+                placeholder="Título"
               />
               <input
                 type="text"
                 class="popup__input popup__input_hobbie"
-                placeholder="Acerca de mi"
+                placeholder="Enlace a la imagen"
               />
             </fieldset>
             <fieldset class="popup__form">
@@ -56,7 +65,9 @@
             </fieldset>
           </form>
         </div>
-        <!-- Form Popup Image -->
+      </div>
+      <!-- Form Popup Image -->
+      <div class="popup" id="openImage">
         <div class="popup__conteiner popup__conteiner_image">
           <button class="popup__button popup__button_close">&#x1F7A9;</button>
           <img
@@ -221,7 +232,7 @@
           src="./images/Valle-de-Yosemite.png"
           alt="valle-yosemite"
         />
-        <button class="card__button-delete"></button>
+        <button class="card__button-delete" id="deleteCard"></button>
         <div class="card__info">
           <p class="card__photo-name">Valle de Yosemite</p>
           <button class="card__button-like">

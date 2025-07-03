@@ -4,7 +4,9 @@ let inputHobbie = document.querySelector(".popup__input_hobbie");
 let infName = document.querySelector(".profile__name");
 let infHobbie = document.querySelector(".profile__hobbie");
 let butEdit = document.querySelector(".profile__edit-button");
-let butClose = document.querySelector(".popup__button_close");
+let butaddImage = document.querySelector(".profile__add-button");
+let butCloseEdit = document.querySelector("#buttonEdit");
+let butCloseEditImg = document.querySelector("#buttoneditImage");
 const templateCard = document.querySelector(".template-card");
 const cardList = document.querySelector(".card");
 
@@ -34,17 +36,11 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
   },
 ];
-
-//function cardsInitials() {
-// initialCards.forEach (item) {
-
-//  }
-//}
-
+//Bucle para agregar tarjetas
 initialCards.forEach(function (item) {
   createCard(item.name, item.link);
 });
-
+//funcion para agregar tarjetas
 function createCard(name, link) {
   const cloneCard = templateCard.content
     .querySelector(".card__content")
@@ -57,14 +53,24 @@ function createCard(name, link) {
   cardImage.src = link;
 }
 
+const deleteCard = cloneCard.querySelector("#deleteCard");
+deleteCard.addEventListener("click", function () {
+  cloneCard.remove();
+});
 //funcion para abrir editar perfil
-function open(evt) {
-  let popup = document.querySelector(".popup");
+function openedit(evt) {
+  let popup = document.querySelector("#editProfile");
   inputName.value = infName.textContent;
   inputHobbie.value = infHobbie.textContent;
   popup.classList.add("popup_opened");
 }
-
+//funcion para abrir editar imagen
+function openaddImage(evt) {
+  let popup = document.querySelector("#addImage");
+  inputName.value = infName.textContent;
+  inputHobbie.value = infHobbie.textContent;
+  popup.classList.add("popup_opened");
+}
 //Boton de guardar
 function save(evt) {
   evt.preventDefault();
@@ -73,12 +79,19 @@ function save(evt) {
   close();
 }
 
-//Funcion para cerrar
-function close(evt) {
-  let popup = document.querySelector(".popup");
+//Funcion para cerrar formulario de editar perfil
+function closedit(evt) {
+  let popup = document.querySelector("#editProfile");
+  popup.classList.remove("popup_opened");
+}
+//Funcion para cerrar formulario de editar imagen
+function closeditImage(evt) {
+  let popup = document.querySelector("#addImage");
   popup.classList.remove("popup_opened");
 }
 
 form.addEventListener("submit", save);
-butClose.addEventListener("click", close);
-butEdit.addEventListener("click", open);
+butCloseEdit.addEventListener("click", closedit);
+butCloseEditImg.addEventListener("click", closeditImage);
+butEdit.addEventListener("click", openedit);
+butaddImage.addEventListener("click", openaddImage);
