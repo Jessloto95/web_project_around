@@ -1,12 +1,17 @@
 let form = document.querySelector("#editProfile");
+//let formImage = document.querySelector(".popu__add-image")
 let inputName = document.querySelector(".popup__input_name");
 let inputHobbie = document.querySelector(".popup__input_hobbie");
 let infName = document.querySelector(".profile__name");
 let infHobbie = document.querySelector(".profile__hobbie");
+let imgeTitle = document.querySelector("#inputNamePlace");
+let imgeLink = document.querySelector("#inputImagePlace");
 let butEdit = document.querySelector(".profile__edit-button");
+//let butOpImage = document.querySelector(".card__photo")
 let butaddImage = document.querySelector(".profile__add-button");
 let butCloseEdit = document.querySelector("#buttonEdit");
 let butCloseEditImg = document.querySelector("#buttoneditImage");
+let SaveEditImg =document.querySelector(".popup__form");
 const templateCard = document.querySelector(".template-card");
 const cardList = document.querySelector(".card");
 
@@ -40,6 +45,23 @@ const initialCards = [
 initialCards.forEach(function (item) {
   createCard(item.name, item.link);
 });
+
+function openImage(evt) {
+  let popup = document.querySelector(".popup__image");
+  inputName.value = infName.textContent;
+  inputHobbie.value = infHobbie.textContent;
+  popup.classList.add("popup_opened");
+  
+}
+
+function submitCart (event) {
+  event.preventDefault()
+const Title = imgeTitle.value;
+  const Link = imgeLink.value;
+  createCard(Title,Link);
+}
+SaveEditImg.addEventListener("submit", submitCart );
+
 //funcion para agregar tarjetas
 function createCard(name, link) {
   const cloneCard = templateCard.content
@@ -51,12 +73,26 @@ function createCard(name, link) {
   cardTitle.textContent = name;
   cardList.append(cloneCard);
   cardImage.src = link;
+
+  const deleteCard = cloneCard.querySelector("#deleteCard");
+  deleteCard.addEventListener("click", function () {
+    cloneCard.remove();
+
+    
+  });
+    cardImage.addEventListener("click", openImage);
+  //funcion para like
+  const likeCard = cloneCard.querySelector(".card__button-like-image");
+  likeCard.addEventListener("click", function () {
+    console.log(likeCard.src)
+    if (likeCard.src == "http://127.0.0.1:5500/images/Union.png") {
+      likeCard.src = "./images/button_like.png";
+    } else {
+      likeCard.src = "./images/Union.png";
+    }
+  });
 }
 
-const deleteCard = cloneCard.querySelector("#deleteCard");
-deleteCard.addEventListener("click", function () {
-  cloneCard.remove();
-});
 //funcion para abrir editar perfil
 function openedit(evt) {
   let popup = document.querySelector("#editProfile");
@@ -71,8 +107,11 @@ function openaddImage(evt) {
   inputHobbie.value = infHobbie.textContent;
   popup.classList.add("popup_opened");
 }
+//funcion para abrir imagen
+
+
 //Boton de guardar
-function save(evt) {
+function savEdit(evt) {
   evt.preventDefault();
   infName.textContent = inputName.value;
   infHobbie.textContent = inputHobbie.value;
@@ -90,8 +129,11 @@ function closeditImage(evt) {
   popup.classList.remove("popup_opened");
 }
 
-form.addEventListener("submit", save);
+form.addEventListener("submit", savEdit);
+//formImage.addEventListener()
 butCloseEdit.addEventListener("click", closedit);
 butCloseEditImg.addEventListener("click", closeditImage);
 butEdit.addEventListener("click", openedit);
+//butOpImage.addEventListener("click", openImage);
 butaddImage.addEventListener("click", openaddImage);
+
