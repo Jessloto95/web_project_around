@@ -81,6 +81,10 @@
   margin-bottom: 40px;
 }
 
+.popup__image-title {
+  color:#fff;
+}
+
 @media screen and (min-width: 320px) and (max-width: 584px) {
   .popup {
     max-width: 300px;

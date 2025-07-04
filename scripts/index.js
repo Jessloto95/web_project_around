@@ -1,5 +1,4 @@
 let form = document.querySelector("#editProfile");
-//let formImage = document.querySelector(".popu__add-image")
 let inputName = document.querySelector(".popup__input_name");
 let inputHobbie = document.querySelector(".popup__input_hobbie");
 let infName = document.querySelector(".profile__name");
@@ -10,6 +9,7 @@ let butEdit = document.querySelector(".profile__edit-button");
 let butaddImage = document.querySelector(".profile__add-button");
 let butCloseEdit = document.querySelector("#buttonEdit");
 let butCloseEditImg = document.querySelector("#buttoneditImage");
+let butCloseImg = document.querySelector("#closeImage");
 let SaveEditImg = document.querySelector("#submit_card");
 const templateCard = document.querySelector(".template-card");
 const cardList = document.querySelector(".card");
@@ -45,19 +45,14 @@ initialCards.forEach(function (item) {
   createCard(item.name, item.link);
 });
 
-function openImage(evt) {
-  let popup = document.querySelector(".popup__image");
-  inputName.value = infName.textContent;
-  inputHobbie.value = infHobbie.textContent;
-  popup.classList.add("popup_opened");
-}
+
 //Funcion para cerrar formulario de editar imagen
 function closeditImage(evt) {
   let popup = document.querySelector("#addImage");
   popup.classList.remove("popup_opened");
 }
 //Funcion para enviar formulario de editar imagen
-function submitCart(event) {
+function submitCard(event) {
   event.preventDefault();
   console.log("click");
   const Title = imgeTitle.value;
@@ -65,7 +60,7 @@ function submitCart(event) {
   createCard(Title, Link);
   closeditImage();
 }
-SaveEditImg.addEventListener("submit", submitCart);
+SaveEditImg.addEventListener("submit", submitCard);
 
 //funcion para agregar tarjetas
 function createCard(name, link) {
@@ -83,7 +78,9 @@ function createCard(name, link) {
   deleteCard.addEventListener("click", function () {
     cloneCard.remove();
   });
-  cardImage.addEventListener("click", openImage);
+  cardImage.addEventListener("click", function(){
+    openImage(name, link);
+  });
   //funcion para like
   const likeCard = cloneCard.querySelector(".card__button-like-image");
   likeCard.addEventListener("click", function () {
@@ -110,7 +107,15 @@ function openaddImage(evt) {
   inputHobbie.value = infHobbie.textContent;
   popup.classList.add("popup_opened");
 }
-//funcion para abrir imagen
+//funcion para abrir imagen *************************
+function openImage (name, link)  {
+  let popup = document.querySelector("#openImage");
+  popup.classList.add("popup_opened");
+  let imagePopup = popup.querySelector(".popup__image");
+  let titlePopup = popup.querySelector(".popup__image-title");
+  imagePopup.src = link;
+  titlePopup.textContent = name;
+}
 
 //Boton de guardar
 function savEdit(evt) {
@@ -126,10 +131,16 @@ function closedit(evt) {
   popup.classList.remove("popup_opened");
 }
 
+//Funcion para cerrar Imagen
+function closeImage(evt) {
+  let popup = document.querySelector("#openImage");
+  popup.classList.remove("popup_opened");
+}
+
+
 form.addEventListener("submit", savEdit);
-//formImage.addEventListener()
 butCloseEdit.addEventListener("click", closedit);
 butCloseEditImg.addEventListener("click", closeditImage);
+butCloseImg.addEventListener("click", closeImage);
 butEdit.addEventListener("click", openedit);
-//butOpImage.addEventListener("click", openImage);
 butaddImage.addEventListener("click", openaddImage);
