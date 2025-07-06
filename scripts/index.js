@@ -1,7 +1,7 @@
 let form = document.querySelector("#editProfile");
 let inputName = document.querySelector(".popup__input_name");
 let inputHobbie = document.querySelector(".popup__input_hobbie");
-let infName = document.querySelector(".profile__name");
+const infName = document.querySelector(".profile__name");
 let infHobbie = document.querySelector(".profile__hobbie");
 let imgeTitle = document.querySelector("#inputNamePlace");
 let imgeLink = document.querySelector("#inputImagePlace");
@@ -45,7 +45,6 @@ initialCards.forEach(function (item) {
   createCard(item.name, item.link);
 });
 
-
 //Funcion para cerrar formulario de editar imagen
 function closeditImage(evt) {
   let popup = document.querySelector("#addImage");
@@ -54,7 +53,6 @@ function closeditImage(evt) {
 //Funcion para enviar formulario de editar imagen
 function submitCard(event) {
   event.preventDefault();
-  console.log("click");
   const Title = imgeTitle.value;
   const Link = imgeLink.value;
   createCard(Title, Link);
@@ -67,7 +65,6 @@ function createCard(name, link) {
   const cloneCard = templateCard.content
     .querySelector(".card__content")
     .cloneNode(true);
-  console.log(cloneCard);
   const cardTitle = cloneCard.querySelector(".card__photo-name");
   const cardImage = cloneCard.querySelector(".card__photo");
   cardTitle.textContent = name;
@@ -78,13 +75,12 @@ function createCard(name, link) {
   deleteCard.addEventListener("click", function () {
     cloneCard.remove();
   });
-  cardImage.addEventListener("click", function(){
+  cardImage.addEventListener("click", function () {
     openImage(name, link);
   });
   //funcion para like
   const likeCard = cloneCard.querySelector(".card__button-like-image");
   likeCard.addEventListener("click", function () {
-    console.log(likeCard.src);
     if (likeCard.src == "http://127.0.0.1:5500/images/Union.png") {
       likeCard.src = "./images/button_like.png";
     } else {
@@ -108,7 +104,7 @@ function openaddImage(evt) {
   popup.classList.add("popup_opened");
 }
 //funcion para abrir imagen *************************
-function openImage (name, link)  {
+function openImage(name, link) {
   let popup = document.querySelector("#openImage");
   popup.classList.add("popup_opened");
   let imagePopup = popup.querySelector(".popup__image");
@@ -136,7 +132,6 @@ function closeImage(evt) {
   let popup = document.querySelector("#openImage");
   popup.classList.remove("popup_opened");
 }
-
 
 form.addEventListener("submit", savEdit);
 butCloseEdit.addEventListener("click", closedit);
