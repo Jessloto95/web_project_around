@@ -36,8 +36,9 @@
   color: #ffffff;
 }
 
-.popup__button_disable{
-  
+.popup__button:disabled {
+  background-color: #c4c4c4;
+  cursor: default;
 }
 
 .popup__button_close {
@@ -71,15 +72,15 @@
   border-bottom: 1px solid #000;
 }
 
-.popup__input_type_error{
-  border-bottom: 1xp solid #FF0000;
+.popup__input_type_error:invalid {
+  border-bottom: 1px solid #ff0000;
 }
 
-.popup__error_visible{
-  color: #FF0000;
-} 
+.popup__error_visible {
+  color: #ff0000;
+}
 
-.popup__input-error{
+.popup__input-error {
   display: block;
 }
 
@@ -98,12 +99,8 @@
   margin-top: 30px;
 }
 
-.popup__button_disabled{
-background-color: #c4c4c4;
-  cursor: default;
-}
 .popup__image-title {
-  color:#fff;
+  color: #fff;
 }
 
 @media screen and (min-width: 320px) and (max-width: 584px) {
