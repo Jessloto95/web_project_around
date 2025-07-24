@@ -17,22 +17,24 @@
           <button class="popup__button popup__button_close" id="buttonEdit">
             &#x1F7A9;
           </button>
-          <form class="popup__content">
+          <form class="popup__content" id="formEdit" novalidate>
             <h2 class="popup__title">Editar perfil</h2>
             <fieldset class="popup__form">
               <input
                 type="text"
-                class="popup__input popup__input_name"
-                placeholder="Nombre"
+                class="popup__input popup__input_name popup__input_type_error"
+                placeholder="Nombre" minlength="2" maxlength="40" id="name-input" name="name"required
               />
+              <span id="name-input-error" class="popup__input-error popup__error_visible"></span>
               <input
                 type="text"
-                class="popup__input popup__input_hobbie"
-                placeholder="Acerca de mi"
+                class="popup__input popup__input_hobbie popup__input_type_error"
+                placeholder="Acerca de mi" minlength="2" maxlength="200" id="hobbie-input" required
               />
+              <span id="hobbie-input-error" class="popup__input-error popup__error_visible"></span>
             </fieldset>
             <fieldset class="popup__form">
-              <button class="popup__button popup__button_save">Guardar</button>
+              <button class="popup__button popup__button_save popup__button_disabled" disabled>Guardar</button>
             </fieldset>
           </form>
         </div>
@@ -53,17 +55,19 @@
                 type="text"
                 class="popup__input popup__input_name"
                 id="inputNamePlace"
-                placeholder="Título"
+                placeholder="Título" minlength="2" maxlength="30" required
               />
+              <span id="inputNamePlace-error"class="popup__input-error popup__error_visible"></span>
               <input
-                type="text"
+                type="url"
                 class="popup__input popup__input_hobbie"
                 id="inputImagePlace"
-                placeholder="Enlace a la imagen"
+                placeholder="Enlace a la imagen" required
               />
+              <span id="inputImagePlace-error" class="popup__input-error popup__error_visible"></span>
             </fieldset>
             <fieldset class="popup__form">
-              <button type="submit" class="popup__button popup__button_save">
+              <button type="submit" class="popup__button popup__button_save popup__button_disabled">
                 Guardar
               </button>
             </fieldset>
@@ -121,108 +125,6 @@
         </section>
         <!-- Tarjetas-->
         <section class="card">
-          <!--<div class="card__content">
-            <img
-              class="card__photo"
-              src="./images/Valle-de-Yosemite.png"
-              alt="valle-yosemite"
-            />
-            <button class="card__button-delete"></button>
-            <div class="card__info">
-              <p class="card__photo-name">Valle de Yosemite</p>
-              <button class="card__button-like">
-                <img
-                  class="card__button-like-image"
-                  src="./images/button_like.png"
-                  alt="Boton de like"
-                />
-              </button>
-            </div>
-          </div>
-          <div class="card__content">
-            <img
-              class="card__photo"
-              src="./images/Lago-Louise.png"
-              alt="Lago Louise"
-            />
-            <div class="card__info">
-              <p class="card__photo-name">Lago Louise</p>
-              <button class="card__button-like">
-                <img
-                  class="card__button-like-image"
-                  src="./images/button_like.png"
-                  alt="Boton de like"
-                />
-              </button>
-            </div>
-          </div>
-          <div class="card__content">
-            <img
-              class="card__photo"
-              src="./images/Montañas-Calvas.png"
-              alt="Montañas Calvas"
-            />
-            <div class="card__info">
-              <p class="card__photo-name">Montañas Calvas</p>
-              <button class="card__button-like">
-                <img
-                  class="card__button-like-image"
-                  src="./images/button_like.png"
-                  alt="Boton de like"
-                />
-              </button>
-            </div>
-          </div>
-          <div class="card__content">
-            <img class="card__photo" src="./images/Latemar.png" alt="Latemar" />
-            <div class="card__info">
-              <p class="card__photo-name">Latemar</p>
-              <button class="card__button-like">
-                <img
-                  class="card__button-like-image"
-                  src="./images/button_like.png"
-                  alt="Boton de like"
-                />
-              </button>
-            </div>
-          </div>
-          <div class="card__content">
-            <img
-              class="card__photo"
-              src="./images/Vanois-National.png"
-              alt="Parque Nacional de la Vanoise"
-            />
-            <div class="card__info">
-              <p class="card__photo-name card__photo-name-overflow">
-                Parque Nacional de la Vanoise
-              </p>
-              <button class="card__button-like">
-                <img
-                  class="card__button-like-image"
-                  src="./images/button_like.png"
-                  alt="Boton de like"
-                  alt="Boton de like"
-                />
-              </button>
-            </div>
-          </div>
-          <div class="card__content">
-            <img
-              class="card__photo"
-              src="./images/Lago-di-Braies.png"
-              alt="Lago di Braies"
-            />
-            <div class="card__info">
-              <p class="card__photo-name">Lago di Braies</p>
-              <button class="card__button-like">
-                <img
-                  class="card__button-like-image"
-                  src="./images/button_like.png"
-                  alt="Boton de like"
-                />
-              </button>
-            </div>
-          </div>-->
         </section>
       </main>
       <footer class="footer">
@@ -250,5 +152,6 @@
       </div>
     </template>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
