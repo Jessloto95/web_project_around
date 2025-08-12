@@ -119,54 +119,36 @@ function savEdit(evt) {
   closedit();
 }
 
-//Funcion para cerrar formulario de editar imagen
-function closeditImage(evt) {
-  popupImage.classList.remove("popup_opened");
+
+function closePopup(x){
+  x.classList.remove("popup_opened");
 }
 
-//Funcion para cerrar formulario de editar perfil
-function closedit(evt) {
-  popupProfile.classList.remove("popup_opened");
-}
-
-//Funcion para cerrar Imagen
-function closeImage(evt) {
-  popupOpenImage.classList.remove("popup_opened");
-}
-
-function closeOutsideEdditProfile(evt){
-  if(evt.target == popupProfile){
-    closedit();
-  }
-}
-
-function closeOutsideAddImage(evt){
-  if(evt.target == popupImage){
-    closeditImage();
-  }
-}
-
-function closeOutsideImage(evt){
-  if(evt.target == popupOpenImage){
-    closeImage();
+function closeOutside(x, evt){
+  if(evt.target == x){
+    closePopup(x);
   }
 }
 
 function closeEsc(evt){
   if(evt.key == "Escape"){
-    closedit();
-    closeImage();
-    closeditImage();
+   closePopup(popupProfile);
+    closePopup(popupImage);
+     closePopup(popupOpenImage);
   };
 }
 
+
+
 document.addEventListener("keydown", closeEsc);
-popupProfile.addEventListener("click", closeOutsideEdditProfile);
-popupImage.addEventListener("click", closeOutsideAddImage);
-popupOpenImage.addEventListener("click", closeOutsideImage);
+popupProfile.addEventListener("click", function(evt){closeOutside(popupProfile, evt)});
+//popupImage.addEventListener("click", closeOutsideAddImage);
+popupImage.addEventListener("click", function(evt){closeOutside(popupImage, evt)});
+popupOpenImage.addEventListener("click",function(evt){closeOutside(popupOpenImage, evt)});
 popupProfile.addEventListener("submit", savEdit);
-butCloseEdit.addEventListener("click", closedit);
-butCloseEditImg.addEventListener("click", closeditImage);
-butCloseImg.addEventListener("click", closeImage);
+//butCloseEdit.addEventListener("click", closedit);
+butCloseEdit.addEventListener("click", function(){closePopup(popupProfile)});
+butCloseEditImg.addEventListener("click", function(){closePopup(popupImage)});
+butCloseImg.addEventListener("click", function(){closePopup(popupOpenImage)});
 butEdit.addEventListener("click", openedit);
 butaddImage.addEventListener("click", openaddImage);
