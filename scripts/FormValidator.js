@@ -5,7 +5,7 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    const inputList = Array.from(
+    this.inputList = Array.from(
       this.form.querySelectorAll(this.settings.inputSelector)
     );
     this.setEventListeners();

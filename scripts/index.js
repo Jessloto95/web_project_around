@@ -1,11 +1,11 @@
-import FormValidator from "./FormValidator";
-import { settings } from "./utils";
+import FormValidator from "./FormValidator.js";
+import { settings } from "./utils.js";
 
-const editProfileFormValidation = new FormValidator(popupProfile, settings);
 const popupProfile = document.querySelector("#editProfile");
+const Profileform = popupProfile.querySelector("#formEdit");
+const editProfileFormValidation = new FormValidator(Profileform, settings);
 editProfileFormValidation.enableValidation();
-console.log(enableValidation);
-
+console.log(editProfileFormValidation);
 const popupImage = document.querySelector("#addImage");
 const popupOpenImage = document.querySelector("#openImage");
 const inputName = document.querySelector(".popup__input_name");
