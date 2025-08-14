@@ -1,25 +1,25 @@
 enableValidation({
   formSelector:"form",
   inputSelector:"input",
-  submitButtonSelector:".popup__button",
+  submitButtonSellector:".popup__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
-});
+})
 
 
-function enableValidation(settings) {
-  const formList = document.querySelectorAll(settings.formSelector);
+function enableValidation() {
+  const formList = document.querySelectorAll("form");
   formList.forEach(function (form) {
-    const inputList = Array.from(form.querySelectorAll(settings.inputSelector));
-    setEventListeners(form, inputList, settings);
+    const inputList = Array.from(form.querySelectorAll("input"));
+    setEventListeners(form, inputList);
   });
 }
 //input.validationMessage;- se genera el mensaje
 //input.validity.valid;-que el imput sea valido
 
-function setEventListeners(form, inputList, settings) {
-  const buttonElement = form.querySelector(settings.submitButtonSelector);
+function setEventListeners(form, inputList) {
+  const buttonElement = form.querySelector(".popup__button");
   validateButton(buttonElement, inputList);
   form.addEventListener("submit", function (evt) {
     evt.preventDefault();
