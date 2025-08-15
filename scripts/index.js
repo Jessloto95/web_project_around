@@ -1,5 +1,6 @@
 import FormValidator from "./FormValidator.js";
 import { settings } from "./utils.js";
+import Card from "./Card.js";
 
 const popupProfile = document.querySelector("#editProfile");
 const Profileform = popupProfile.querySelector("#formEdit");
@@ -51,7 +52,8 @@ const initialCards = [
 ];
 //Bucle para agregar tarjetas
 initialCards.forEach(function (item) {
-  createCard(item.name, item.link);
+  const cloneCard = createCard(item.name, item.link);
+  cardList.append(cloneCard);
 });
 
 //Funcion para cerrar formulario de editar imagen
@@ -70,16 +72,8 @@ SaveEditImg.addEventListener("submit", submitCard);
 
 //funcion para agregar tarjetas
 function createCard(name, link) {
-  const cloneCard = templateCard.content
-    .querySelector(".card__content")
-    .cloneNode(true);
-  const cardTitle = cloneCard.querySelector(".card__photo-name");
-  const cardImage = cloneCard.querySelector(".card__photo");
-  cardTitle.textContent = name;
-  cardList.append(cloneCard);
-  cardImage.src = link;
-
-  const deleteCard = cloneCard.querySelector("#deleteCard");
+  return new Card(name, link).generateElement();
+  /* const deleteCard = cloneCard.querySelector("#deleteCard");
   deleteCard.addEventListener("click", function () {
     cloneCard.remove();
   });
@@ -94,7 +88,7 @@ function createCard(name, link) {
     } else {
       likeCard.src = "./images/Union.png";
     }
-  });
+  }); */
 }
 
 //funcion para abrir editar perfil
