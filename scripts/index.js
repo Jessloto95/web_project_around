@@ -4,8 +4,11 @@ import Card from "./Card.js";
 
 const popupProfile = document.querySelector("#editProfile");
 const Profileform = popupProfile.querySelector("#formEdit");
+const SaveEditImg = document.querySelector("#submit_card");
+const editImageFormValidation = new FormValidator (SaveEditImg,settings);
 const editProfileFormValidation = new FormValidator(Profileform, settings);
 editProfileFormValidation.enableValidation();
+editImageFormValidation.enableValidation();
 console.log(editProfileFormValidation);
 const popupImage = document.querySelector("#addImage");
 const popupOpenImage = document.querySelector("#openImage");
@@ -20,8 +23,7 @@ const butaddImage = document.querySelector(".profile__add-button");
 const butCloseEdit = document.querySelector("#buttonEdit");
 const butCloseEditImg = document.querySelector("#buttoneditImage");
 const butCloseImg = document.querySelector("#closeImage");
-const SaveEditImg = document.querySelector("#submit_card");
-const templateCard = document.querySelector(".template-card");
+
 const cardList = document.querySelector(".card");
 
 const initialCards = [
@@ -65,30 +67,16 @@ function submitCard(event) {
   event.preventDefault();
   const Title = imgeTitle.value;
   const Link = imgeLink.value;
-  createCard(Title, Link);
+  const newCard =  createCard(Title, Link);
+  cardList.append(newCard);
   closeditImage();
+  console.log(submitCard);
 }
 SaveEditImg.addEventListener("submit", submitCard);
 
 //funcion para agregar tarjetas
 function createCard(name, link) {
-  return new Card(name, link).generateElement();
-  /* const deleteCard = cloneCard.querySelector("#deleteCard");
-  deleteCard.addEventListener("click", function () {
-    cloneCard.remove();
-  });
-  cardImage.addEventListener("click", function () {
-    openImage(name, link);
-  });
-  //funcion para like
-  const likeCard = cloneCard.querySelector(".card__button-like-image");
-  likeCard.addEventListener("click", function () {
-    if (likeCard.src == "http://127.0.0.1:5500/images/Union.png") {
-      likeCard.src = "./images/button_like.png";
-    } else {
-      likeCard.src = "./images/Union.png";
-    }
-  }); */
+return new Card(name, link).generateElement();
 }
 
 //funcion para abrir editar perfil
@@ -102,14 +90,6 @@ function openaddImage(evt) {
   inputName.value = infName.textContent;
   inputHobbie.value = infHobbie.textContent;
   popupImage.classList.add("popup_opened");
-}
-//funcion para abrir imagen *************************
-function openImage(name, link) {
-  popupOpenImage.classList.add("popup_opened");
-  let imagePopup = popupOpenImage.querySelector(".popup__image");
-  let titlePopup = popupOpenImage.querySelector(".popup__image-title");
-  imagePopup.src = link;
-  titlePopup.textContent = name;
 }
 
 //Boton de guardar
