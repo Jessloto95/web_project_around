@@ -14,7 +14,6 @@ export default class Card {
     this.cardImage = this.cloneCard.querySelector(".card__photo");
     this.cardImage.src = this.link;
     this.buttonLike = this.cloneCard.querySelector(".card__button-like-image");
-    //this.cardList.append(cloneCard);
     this.setupEventListeners();
     return this.cloneCard;
   }
@@ -31,7 +30,6 @@ export default class Card {
     });
 
     this.cardImage.addEventListener("click", () => {
-      console.log(this)
       this.openImage(this.name, this.link);
     });
   }
@@ -46,7 +44,6 @@ export default class Card {
     } else {
       this.buttonLike.src = "./images/Union.png";
     }
-    console.log(this.likeCard);
   }
 
   openImage() {
@@ -55,7 +52,6 @@ export default class Card {
     let imagePopup = this.popupOpenImage.querySelector(".popup__image");
     let titlePopup = this.popupOpenImage.querySelector(".popup__image-title");
     imagePopup.src = this.link;
-    titlePopup.textContent = this.name;
+    titlePopup.textContent = this.title;
   }
 }
-

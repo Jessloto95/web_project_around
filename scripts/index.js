@@ -1,15 +1,21 @@
 import FormValidator from "./FormValidator.js";
-import { settings } from "./utils.js";
+import {
+  settings,
+  openEdit,
+  openAddImage,
+  closePopup,
+  closeOutside,
+  closeEsc,
+} from "./utils.js";
 import Card from "./Card.js";
 
 const popupProfile = document.querySelector("#editProfile");
 const Profileform = popupProfile.querySelector("#formEdit");
 const SaveEditImg = document.querySelector("#submit_card");
-const editImageFormValidation = new FormValidator (SaveEditImg,settings);
+const editImageFormValidation = new FormValidator(SaveEditImg, settings);
 const editProfileFormValidation = new FormValidator(Profileform, settings);
 editProfileFormValidation.enableValidation();
 editImageFormValidation.enableValidation();
-console.log(editProfileFormValidation);
 const popupImage = document.querySelector("#addImage");
 const popupOpenImage = document.querySelector("#openImage");
 const inputName = document.querySelector(".popup__input_name");
@@ -58,38 +64,24 @@ initialCards.forEach(function (item) {
   cardList.append(cloneCard);
 });
 
-//Funcion para cerrar formulario de editar imagen
-function closeditImage(evt) {
+function closeditImage() {
   popupImage.classList.remove("popup_opened");
 }
+
 //Funcion para enviar formulario de editar imagen
 function submitCard(event) {
   event.preventDefault();
   const Title = imgeTitle.value;
   const Link = imgeLink.value;
-  const newCard =  createCard(Title, Link);
+  const newCard = createCard(Title, Link);
   cardList.append(newCard);
   closeditImage();
-  console.log(submitCard);
 }
 SaveEditImg.addEventListener("submit", submitCard);
 
 //funcion para agregar tarjetas
 function createCard(name, link) {
-return new Card(name, link).generateElement();
-}
-
-//funcion para abrir editar perfil
-function openedit(evt) {
-  inputName.value = infName.textContent;
-  inputHobbie.value = infHobbie.textContent;
-  popupProfile.classList.add("popup_opened");
-}
-//funcion para abrir editar imagen
-function openaddImage(evt) {
-  inputName.value = infName.textContent;
-  inputHobbie.value = infHobbie.textContent;
-  popupImage.classList.add("popup_opened");
+  return new Card(name, link).generateElement();
 }
 
 //Boton de guardar
@@ -97,40 +89,13 @@ function savEdit(evt) {
   evt.preventDefault();
   infName.textContent = inputName.value;
   infHobbie.textContent = inputHobbie.value;
-  closedit();
+  closePopup(popupProfile);
 }
 
-function closePopup(x) {
-  x.classList.remove("popup_opened");
-}
-
-function closeOutside(x, evt) {
-  if (evt.target == x) {
-    closePopup(x);
-  }
-}
-
-function closeEsc(evt) {
-  if (evt.key == "Escape") {
-    closePopup(popupProfile);
-    closePopup(popupImage);
-    closePopup(popupOpenImage);
-  }
-}
-
-document.addEventListener("keydown", closeEsc);
-popupProfile.addEventListener("click", function (evt) {
-  closeOutside(popupProfile, evt);
-});
-//popupImage.addEventListener("click", closeOutsideAddImage);
-popupImage.addEventListener("click", function (evt) {
-  closeOutside(popupImage, evt);
-});
-popupOpenImage.addEventListener("click", function (evt) {
-  closeOutside(popupOpenImage, evt);
+document.addEventListener("keydown", (evt) => {
+  closeEsc(evt, [popupProfile, popupImage, popupOpenImage]);
 });
 popupProfile.addEventListener("submit", savEdit);
-//butCloseEdit.addEventListener("click", closedit);
 butCloseEdit.addEventListener("click", function () {
   closePopup(popupProfile);
 });
@@ -140,5 +105,18 @@ butCloseEditImg.addEventListener("click", function () {
 butCloseImg.addEventListener("click", function () {
   closePopup(popupOpenImage);
 });
-butEdit.addEventListener("click", openedit);
-butaddImage.addEventListener("click", openaddImage);
+butEdit.addEventListener("click", function () {
+  openEdit(popupProfile, infName, infHobbie);
+});
+butaddImage.addEventListener("click", function () {
+  openAddImage(popupImage, infName, infHobbie);
+});
+popupProfile.addEventListener("click", function (evt) {
+  closeOutside(popupProfile, evt);
+});
+popupImage.addEventListener("click", function (evt) {
+  closeOutside(popupImage, evt);
+});
+popupOpenImage.addEventListener("click", function (evt) {
+  closeOutside(popupOpenImage, evt);
+});
