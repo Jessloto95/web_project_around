@@ -11,7 +11,7 @@ export default class FormValidator {
     this.setEventListeners();
   }
   //Agrega los eventos
-  setEventListeners() {
+  _setEventListeners() {
     this.buttonElement = this.form.querySelector(
       this.settings.submitButtonSelector
     );
@@ -21,18 +21,18 @@ export default class FormValidator {
 
     this.inputList.forEach((input) => {
       input.addEventListener("input", () => {
-        this.showInputError(input);
+        this._showInputError(input);
         this.validateButton();
       });
     });
   }
 
-  showInputError(input) {
+  _showInputError(input) {
     const spanElement = document.querySelector(`#${input.id}-error`);
     spanElement.textContent = input.validationMessage;
   }
 
-  validateButton() {
+  _validateButton() {
     if (this.checkInputsValidity(this.inputList)) {
       this.buttonElement.classList.add("popup__button_disabled");
       this.buttonElement.disabled = true;
@@ -41,7 +41,7 @@ export default class FormValidator {
       this.buttonElement.disabled = false;
     }
   }
-  checkInputsValidity(inputList) {
+  _checkInputsValidity(inputList) {
     return this.inputList.some(function (input) {
       return !input.validity.valid;
     });

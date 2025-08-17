@@ -2,55 +2,54 @@ export default class Card {
   constructor(title, link) {
     this.link = link;
     this.title = title;
-    this.templateCard = document.querySelector(".template-card");
+    this._templateCard = document.querySelector(".template-card");
   }
 
   generateElement() {
-    this.cloneCard = this.templateCard.content
+    this._cloneCard = this._templateCard.content
       .querySelector(".card__content")
       .cloneNode(true);
-    this.cardTitle = this.cloneCard.querySelector(".card__photo-name");
-    this.cardTitle.textContent = this.title;
-    this.cardImage = this.cloneCard.querySelector(".card__photo");
-    this.cardImage.src = this.link;
-    this.buttonLike = this.cloneCard.querySelector(".card__button-like-image");
-    this.setupEventListeners();
-    return this.cloneCard;
+    this._cardTitle = this._cloneCard.querySelector(".card__photo-name");
+    this._cardTitle.textContent = this.title;
+    this._cardImage = this._cloneCard.querySelector(".card__photo");
+    this._cardImage.src = this.link;
+    this._buttonLike = this._cloneCard.querySelector(
+      ".card__button-like-image"
+    );
+    this._setupEventListeners();
+    return this._cloneCard;
   }
 
-  setupEventListeners() {
-    this.trashElement = this.cloneCard
+  _setupEventListeners() {
+    this._trashElement = this._cloneCard
       .querySelector("#deleteCard")
       .addEventListener("click", () => {
         this.deleteCard();
       });
-
-    this.buttonLike.addEventListener("click", () => {
+    this._buttonLike.addEventListener("click", () => {
       this.likeCard();
     });
-
-    this.cardImage.addEventListener("click", () => {
-      this.openImage(this.name, this.link);
+    this._cardImage.addEventListener("click", () => {
+      this.openImage();
     });
   }
-
   deleteCard() {
-    this.cloneCard.remove();
+    this._cloneCard.remove();
   }
 
   likeCard() {
-    if (this.src == "http://127.0.0.1:5500/images/Union.png") {
-      this.buttonLike.src = "./images/button_like.png";
+    if (this._buttonLike.src == "http://127.0.0.1:5500/images/Union.png") {
+      this._buttonLike.src = "./images/button_like.png";
     } else {
-      this.buttonLike.src = "./images/Union.png";
+      this._buttonLike.src = "./images/Union.png";
     }
   }
 
   openImage() {
-    this.popupOpenImage = document.querySelector("#openImage");
-    this.popupOpenImage.classList.add("popup_opened");
-    let imagePopup = this.popupOpenImage.querySelector(".popup__image");
-    let titlePopup = this.popupOpenImage.querySelector(".popup__image-title");
+    this._popupOpenImage = document.querySelector("#openImage");
+    this._popupOpenImage.classList.add("popup_opened");
+    let imagePopup = this._popupOpenImage.querySelector(".popup__image");
+    let titlePopup = this._popupOpenImage.querySelector(".popup__image-title");
     imagePopup.src = this.link;
     titlePopup.textContent = this.title;
   }
