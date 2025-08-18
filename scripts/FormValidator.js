@@ -8,7 +8,7 @@ export default class FormValidator {
     this.inputList = Array.from(
       this.form.querySelectorAll(this.settings.inputSelector)
     );
-    this.setEventListeners();
+    this._setEventListeners();
   }
   //Agrega los eventos
   _setEventListeners() {
@@ -22,7 +22,7 @@ export default class FormValidator {
     this.inputList.forEach((input) => {
       input.addEventListener("input", () => {
         this._showInputError(input);
-        this.validateButton();
+        this._validateButton();
       });
     });
   }
@@ -33,7 +33,7 @@ export default class FormValidator {
   }
 
   _validateButton() {
-    if (this.checkInputsValidity(this.inputList)) {
+    if (this._checkInputsValidity(this.inputList)) {
       this.buttonElement.classList.add("popup__button_disabled");
       this.buttonElement.disabled = true;
     } else {
