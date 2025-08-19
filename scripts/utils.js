@@ -18,8 +18,8 @@ export function openEdit(popupProfile, infName, infHobbie) {
 export function openAddImage(popupImage, infName, infHobbie) {
   const inputName = popupImage.querySelector(".popup__input_name");
   const inputHobbie = popupImage.querySelector(".popup__input_hobbie");
-  inputName.value = infName.textContent;
-  inputHobbie.value = infHobbie.textContent;
+  inputName.value = "";
+  inputHobbie.value = "";
   popupImage.classList.add("popup_opened");
 }
 
