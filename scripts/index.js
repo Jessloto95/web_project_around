@@ -8,6 +8,7 @@ import {
   closeEsc,
 } from "./utils.js";
 import Card from "./Card.js";
+import Section from "./Section.js";
 
 const popupProfile = document.querySelector("#editProfile");
 const Profileform = popupProfile.querySelector("#formEdit");
@@ -83,6 +84,13 @@ SaveEditImg.addEventListener("submit", submitCard);
 function createCard(name, link) {
   return new Card(name, link).generateElement();
 }
+
+//Agregando la seccion
+// proceso de agregar las cartas  new ******************
+// const = cardSelection = new Section({ items: initialCards, renderer: (item) => {}},
+// ".card"
+// );
+// cardSelection.addItem(Card);
 
 //Boton de guardar
 function savEdit(evt) {
