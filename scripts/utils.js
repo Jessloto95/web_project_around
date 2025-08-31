@@ -1,40 +1,19 @@
-export const settings = {
-  formSelector: "form",
-  inputSelector: "input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+export const popUp = document.querySelector(".popup");
+export const infName = document.querySelector(".profile__name"); //nameDefault
+export const cardList = document.querySelector(".card"); //galleryContainer
+export const infHobbie = document.querySelector(".profile__hobbie"); //occupationDefault
 
-export function openEdit(popupProfile, infName, infHobbie) {
-  const inputName = popupProfile.querySelector(".popup__input_name");
-  const inputHobbie = popupProfile.querySelector(".popup__input_hobbie");
-  inputName.value = infName.textContent;
-  inputHobbie.value = infHobbie.textContent;
-  popupProfile.classList.add("popup_opened");
-}
+//Exportando variables de botones
+export const butEdit = document.querySelector(".profile__edit-button"); //btnEdit
+export const butaddImage = document.querySelector(".profile__add-button"); //btnAdd
 
-export function openAddImage(popupImage, infName, infHobbie) {
-  const inputName = popupImage.querySelector(".popup__input_name");
-  const inputHobbie = popupImage.querySelector(".popup__input_hobbie");
-  inputName.value = "";
-  inputHobbie.value = "";
-  popupImage.classList.add("popup_opened");
-}
+//Exportar variables para agregar inputs
+export const inputName = document.querySelector(".popup__input_name"); //inName
+export const inputHobbie = document.querySelector(".popup__input_hobbie"); //inOccupation
 
-export function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-}
-
-export function closeOutside(popup, evt) {
-  if (evt.target === popup) {
-    closePopup(popup);
-  }
-}
-
-export function closeEsc(evt, popups) {
+//Funcion para tecla esc keyPush
+export function closeEsc(evt) {
   if (evt.key === "Escape") {
-    popups.forEach((popup) => closePopup(popup));
+    popups.forEach((popup) => closePopup(popup)); //**** */
   }
 }
