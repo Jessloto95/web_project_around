@@ -43,8 +43,11 @@ const userProfile = new UserInfo({
   about: userProfileConfig.about,
 });
 
+console.log("nameElement:", userProfile.nameElement);
+console.log("aboutElement:", userProfile.aboutElement);
+
 const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
-  userProfile.setUserInfo(data.name, data.about);
+  userProfile.setUserInfo(data["name-input"], data["hobbie-input"]);
 });
 
 popupProfile.setEventListeners();
@@ -86,9 +89,9 @@ formValidate.enableValidation();
 
 //eventos de botones
 butEdit.addEventListener("click", () => {
-  const currentUser = userProfile.getUserInfo();
-  document.querySelector("#name-input").value = currentUser.name;
-  document.querySelector("#hobbie-input").value = currentUser.about;
+  // const currentUser = userProfile.getUserInfo();
+  // document.querySelector("#name-input").value = currentUser.name;
+  // document.querySelector("#hobbie-input").value = currentUser.about;
   popupProfile.open();
 });
 butaddImage.addEventListener("click", () => popupAddCart.open());

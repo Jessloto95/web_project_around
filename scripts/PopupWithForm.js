@@ -12,7 +12,7 @@ export default class PopupWithForm extends Popup {
     const inputList = this.formElement.querySelectorAll(".popup__input"); // Seleccionamos todos los input de los formularios
     inputList.forEach((input) => {
       //Hace una lista de inputs y guardamos el valor en el id del input
-      data[input.id] = input.value;
+      data[input.name] = input.value;
     });
     return data;
   } //Se encarga de dar como resultado un objeto con todos los valores de todos los inputs
