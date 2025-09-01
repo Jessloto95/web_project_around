@@ -10,14 +10,14 @@ export default class FormValidator {
     const formList = document.querySelectorAll(this.formSelector);
     //listado de formularios
     formList.forEach((form) => {
-      const inputList = Array.form(form.querySelectorAll("input"));
+      const inputList = Array.from(form.querySelectorAll("input"));
       this._setEventListeners(form, inputList);
     });
   }
   //Agrega los eventos validar los evenos
-  _setEventListeners() {
+  _setEventListeners(form, inputList) {
     const buttonElement = form.querySelector(this.submitButtonSelector);
-    this.validateButton(buttonElement, inputList);
+    this._validateButton(buttonElement, inputList);
 
     form.addEventListener("submit", (evt) => {
       evt.preventDefault();
@@ -25,8 +25,8 @@ export default class FormValidator {
 
     inputList.forEach((input) => {
       input.addEventListener("input", () => {
-        this.showInputError(input);
-        this.validateButton(buttonElement, inputList);
+        this._showInputError(input);
+        this._validateButton(buttonElement, inputList);
       });
     });
   }
@@ -44,12 +44,10 @@ export default class FormValidator {
     if (this._checkInputsValidity(inputList)) {
       buttonElement.disabled = true;
     } else {
-      buttonElement.removeAttribute("disabled");
+      buttonElement.disabled = false;
     }
   }
   _checkInputsValidity(inputList) {
-    return inputList.some(function (input) {
-      return !input.validity.valid;
-    });
+    return inputList.some((input) => !input.validity.valid);
   }
 }

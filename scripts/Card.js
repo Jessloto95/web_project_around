@@ -1,29 +1,34 @@
 import { closeEsc } from "./utils.js";
 
 export default class Card {
-  constructor(title, link) {
-    this.link = link;
-    this.title = title;
-    this.selector = selector || ".card__content";
-    this._templateCard = document.querySelector(".template-card");
-    this.handleCardClick = handleCardClick;
+  constructor(title, link, selector, handleCardClick) {
+    this._link = link;
+    this._title = title;
+    this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   _generateElement() {
-    this.cloneCard = _templateCard
-      .cloneNode(true)
-      .content.querySelector(this.selector);
+    const template = document.querySelector(this._selector).content;
+    this._element = template.querySelector(".card__content").cloneNode(true);
 
-    this._cardTitle = this.cloneCard.querySelector(".card__photo-name");
-    this._cardTitle.textContent = this.title;
-    this._cardImage = this._cloneCard.querySelector(".card__photo");
-    this._cardImage.src = this.link;
+    this._cardTitle = this._element.querySelector(".card__photo-name");
+    this._cardTitle.textContent = this._title;
+    this._cardImage = this._element.querySelector(".card__photo");
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._title;
 
-    return this._cloneCard;
+    this._trashButton = this._element.querySelector("#deleteCard");
+    this._buttonLike = this._element.querySelector(".card__button-like");
+    this._buttonLikeImage = this._element.querySelector(
+      ".card__button-like-image"
+    );
+
+    return this._element;
   }
 
   createCard() {
-    this._element = this._generateElement();
+    this._generateElement();
 
     this._setupEventListeners();
     return this._element;
@@ -31,11 +36,9 @@ export default class Card {
 
   _setupEventListeners() {
     // Boton eliminar carta
-    this._trashElement = this._cloneCard
-      .querySelector("#deleteCard")
-      .addEventListener("click", (evt) => {
-        this.deleteCard();
-      });
+    this._trashButton.addEventListener("click", () => {
+      this.deleteCard();
+    });
 
     //Boton de like
     this._buttonLike.addEventListener("click", () => {
@@ -44,23 +47,21 @@ export default class Card {
 
     //Abrir imagen
     this._cardImage.addEventListener("click", () => {
-      this.handleCardClick(this.title, this.link);
+      this._handleCardClick(this._title, this._link);
     });
   }
   deleteCard() {
-    this._cloneCard.remove();
+    this._element.remove();
   }
 
   likeCard() {
-    this._buttonLike.classList.toggle("card__button_like_active");
+    const isActive = this._buttonLike.classList.toggle(
+      "card__button-like_active"
+    );
+    if (isActive) {
+      this._buttonLikeImage.src = "../images/button_like-active.png";
+    } else {
+      this._buttonLikeImage.src = "../images/button_like.png";
+    }
   }
-
-  // openImage() {
-  //   this._popupOpenImage = document.querySelector("#openImage");
-  //   this._popupOpenImage.classList.add("popup_opened");
-  //   let imagePopup = this._popupOpenImage.querySelector(".popup__image");
-  //   let titlePopup = this._popupOpenImage.querySelector(".popup__image-title");
-  //   imagePopup.src = this.link;
-  //   titlePopup.textContent = this.title;
-  // }
 }
