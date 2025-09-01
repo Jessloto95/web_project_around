@@ -39,15 +39,15 @@ const userProfileConfig = {
 }; //******* */
 
 const userProfile = new UserInfo({
-  name: userProfileConfig.name,
-  about: userProfileConfig.about,
+  nameSelector: userProfileConfig.name,
+  aboutSelector: userProfileConfig.about,
 });
 
 console.log("nameElement:", userProfile.nameElement);
 console.log("aboutElement:", userProfile.aboutElement);
 
 const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
-  userProfile.setUserInfo(data["name-input"], data["hobbie-input"]);
+  userProfile.setUserInfo(data.name, data.about);
 });
 
 popupProfile.setEventListeners();
