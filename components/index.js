@@ -36,7 +36,7 @@ const initialCards = [
 const userProfileConfig = {
   name: ".profile__name",
   about: ".profile__hobbie",
-}; //******* */
+}; 
 
 const userProfile = new UserInfo({
   nameSelector: userProfileConfig.name,
@@ -52,14 +52,30 @@ const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
 
 popupProfile.setEventListeners();
 
+//Agregar a la seccion
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      cardSection.addItem(addCard(item));
+    },
+  },
+  ".card"
+);
+
+cardSection.renderer();
+
+
+
 const popupAddCart = new PopupWithForm(
   "#addImage",
   ".popup__form-add",
   (data) => {
+    console.log(data)
     const newCard = new Card(
       data.title,
       data.url,
-      ".card__content",
+      ".template-card",
       (title, link) => {
         //abrimos la carta
         popupOpenCard.open(title, link);
@@ -67,7 +83,8 @@ const popupAddCart = new PopupWithForm(
     );
 
     const cardElement = newCard.createCard();
-    galleryConsiner.append(cardElement);
+    console.log(cardElement);
+    cardSection.addItem(cardElement);
   }
 );
 
@@ -96,7 +113,7 @@ butEdit.addEventListener("click", () => {
 });
 butaddImage.addEventListener("click", () => popupAddCart.open());
 
-//Bucle para Agregar tarjeta
+// para Agregar tarjeta
 function addCard(data) {
   console.log(data);
   const newCard = new Card(
@@ -110,17 +127,6 @@ function addCard(data) {
   return newCard.createCard();
 }
 
-//Agregar a la seccion
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      cardSection.addItem(addCard(item));
-    },
-  },
-  ".card"
-);
 
-cardSection.renderer();
 
 export { settings };
