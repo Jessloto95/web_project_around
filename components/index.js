@@ -7,8 +7,6 @@ import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
 import UserInfo from "./UserInfo.js";
 
-const token = "990fba54-5d58-4330-94ca-bd5307383afd";
-
 // Configuración de selectores para la información del usuario
 const userProfileConfig = {
   name: ".profile__name", // Selector para el nombre del perfil
@@ -51,20 +49,20 @@ api.getInitialCards().then(function (initialCards) {
     "#addImage", // Selector del popup de añadir imagen
     ".popup__form-add", // Selector del formulario dentro del popup
     (data) => {
-      console.log(data);
-      const newCard = new Card(
-        data.title, // Título de la nueva tarjeta
-        data.url, // URL de la imagen de la nueva tarjeta
-        ".template-card", // Selector de la plantilla para crear la tarjeta
-        (title, link) => {
-          // Función de callback para cuando se hace clic en la imagen de la tarjeta
-          popupOpenCard.open(title, link); // Abre el popup de imagen con el título y enlace de la tarjeta
-        }
-      );
+      api.createCard(data.title, data.url).then(function (card) {
+        const newCard = new Card(
+          card,
+          ".template-card", // Selector de la plantilla para crear la tarjeta
+          (title, link) => {
+            // Función de callback para cuando se hace clic en la imagen de la tarjeta
+            popupOpenCard.open(title, link); // Abre el popup de imagen con el título y enlace de la tarjeta
+          }
+        );
 
-      const cardElement = newCard.createCard(); // Crea el elemento DOM de la nueva tarjeta
-      console.log(cardElement);
-      cardSection.addItem(cardElement); // Añade la nueva tarjeta al inicio de la sección de tarjetas
+        const cardElement = newCard.createCard(); // Crea el elemento DOM de la nueva tarjeta
+        console.log(cardElement);
+        cardSection.addItem(cardElement); // Añade la nueva tarjeta al inicio de la sección de tarjetas
+      });
     }
   );
 
@@ -96,13 +94,11 @@ api.getInitialCards().then(function (initialCards) {
 
   // Función para crear y devolver un elemento de tarjeta
   function addCard(data) {
-    console.log(data);
     const newCard = new Card(
-      data.name, // Nombre de la tarjeta
-      data.link, // Enlace de la imagen de la tarjeta
+      data,
       ".template-card", // Selector de la plantilla para crear la tarjeta
       (title, link) => {
-        popupOpenCard.open(title, link); // Abre el popup de imagen al hacer clic en la tarjeta
+        popupOpenCard.open(data.title, data.link); // Abre el popup de imagen al hacer clic en la tarjeta
       }
     );
     return newCard.createCard(); // Crea y devuelve el elemento DOM de la tarjeta

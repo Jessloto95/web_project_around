@@ -1,9 +1,10 @@
 //import { closeEsc } from "./utils.js";
 
 export default class Card {
-  constructor(title, link, selector, handleCardClick) {
-    this._link = link; // Guarda el enlace de la imagen
-    this._title = title; // Guarda el título de la tarjeta
+  constructor(data, selector, handleCardClick) {
+    this._link = data.link; // Guarda el enlace de la imagen
+    this._title = data.name; // Guarda el título de la tarjeta
+    this._id = data._id;
     this._selector = selector; // Guarda el selector de la plantilla HTML para la tarjeta
     this._handleCardClick = handleCardClick; // Guarda la función de callback para cuando se hace clic en la imagen de la tarjeta
   }
@@ -11,7 +12,7 @@ export default class Card {
   _generateElement() {
     const template = document.querySelector(this._selector).content; // Obtiene el contenido de la plantilla HTML
     this._element = template.querySelector(".card__content").cloneNode(true); // Clona el elemento principal de la tarjeta de la plantilla
-
+    console.log("cardId", this._id);
     this._cardTitle = this._element.querySelector(".card__photo-name"); // Selecciona el elemento del título de la tarjeta
     this._cardTitle.textContent = this._title; // Establece el texto del título de la tarjeta
     this._cardImage = this._element.querySelector(".card__photo"); // Selecciona el elemento de la imagen de la tarjeta

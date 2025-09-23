@@ -4,9 +4,9 @@ class Api {
     this.headers = options.headers;
   }
 
-  //Metodo para obtener las tarjetas iniciales
-  getInitialCards() {
-    return fetch(`${this.baseUrl}/cards`, {
+  getUser() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "GET",
       headers: this.headers,
     }).then((res) => {
       if (res.ok) {
@@ -15,7 +15,45 @@ class Api {
     });
   }
 
-  // otros métodos para trabajar con la API
+  // Método para obtener las tarjetas iniciales
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: "GET",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    });
+  }
+
+  // Método para agregar una nueva tarjeta
+  createCard(name, link) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: "POST",
+      headers: this.headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    });
+  }
+
+  // Método para eliminar una tarjeta (moved inside the class)
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    });
+  }
 }
 
 const api = new Api({
