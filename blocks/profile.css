@@ -15,6 +15,10 @@
   height: 120px;
 }
 
+.profile__person:hover {
+  opacity: 40%;
+  cursor: url("../images/edit-profile.svg") 1 1, auto;
+}
 .profile__content {
   display: flex;
   gap: 18px;

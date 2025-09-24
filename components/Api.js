@@ -4,6 +4,7 @@ class Api {
     this.headers = options.headers;
   }
 
+  // Metodo para obtener la informacion del usuario
   getUser() {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "GET",
@@ -14,6 +15,12 @@ class Api {
       }
     });
   }
+
+  //Modificar el perfil
+  userEdit() {}
+
+  //Modificar imagen del perfil
+  editAvatar() {}
 
   // Método para obtener las tarjetas iniciales
   getInitialCards() {
@@ -51,6 +58,30 @@ class Api {
     }).then((res) => {
       if (res.ok) {
         return res.json();
+      }
+    });
+  }
+
+  //Metodo de me gusta
+  likeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this.headers,
+    }).then((result) => {
+      if (result.ok) {
+        return result.json();
+      }
+    });
+  }
+
+  //Metodo para elominar el me gusta
+  removeLikeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this.headers,
+    }).then((result) => {
+      if (result.ok) {
+        return result.json();
       }
     });
   }
