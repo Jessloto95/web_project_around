@@ -1,6 +1,6 @@
 import { api } from "./Api.js";
 import FormValidator from "./FormValidator.js"; // Importa la clase FormValidator
-import { cardList, butEdit, butaddImage } from "./utils.js"; // Importa variables y funciones de utils.js
+import { butEdit, butaddImage } from "./utils.js"; // Importa variables y funciones de utils.js
 import Card from "./Card.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
@@ -13,15 +13,24 @@ const userProfileConfig = {
   about: ".profile__hobbie",
 };
 
-// Instancia de UserInfo para manejar la información del perfil del usuario
 const userProfile = new UserInfo({
   nameSelector: userProfileConfig.name,
   aboutSelector: userProfileConfig.about,
 });
 
+// Cargar la información del usuario desde la API al inicio
+api.getUser()
+.then((userData) =>{
+  userProfile.setUserInfo(userData.name, userData.about);
+});
+
+
 // Instancia de PopupWithForm para el popup de edición de perfil
 const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
-  userProfile.setUserInfo(data.name, data.about);
+  api.userEdit(data.name, data.about)
+  .then((updatedUser) => {
+    userProfile.setUserInfo(updatedUser.name, updatedUser.about);//Actualiza los datos del la API
+  })
 });
 
 popupProfile.setEventListeners();
@@ -83,6 +92,9 @@ api.getInitialCards().then(function (initialCards) {
 
   // Eventos de botones
   butEdit.addEventListener("click", () => {
+    const currentUserInfo = userProfile.getUserInfo();
+    document.querySelector("#name").value = currentUserInfo.name;
+    document.querySelector("#about").value = currentUserInfo.about;
     popupProfile.open();
   });
   butaddImage.addEventListener("click", () => popupAddCart.open());

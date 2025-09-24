@@ -17,7 +17,22 @@ class Api {
   }
 
   //Modificar el perfil
-  userEdit() {}
+  userEdit(name, about) {
+    return (
+      fetch(`${this.baseUrl}/users/me/`, {
+        method: "PATCH",
+        headers: this.headers,
+        body: JSON.stringify({
+          name: name,
+          about: about,
+        })
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+    );
+  }
 
   //Modificar imagen del perfil
   editAvatar() {}
