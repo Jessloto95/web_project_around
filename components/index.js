@@ -4,6 +4,7 @@ import { butEdit, butaddImage } from "./utils.js"; // Importa variables y funcio
 import Card from "./Card.js";
 import Section from "./Section.js";
 import PopupWithForm from "./PopupWithForm.js";
+import PopupWithConfirmation from "./PopupWithConfirmation.js";
 import PopupWithImage from "./PopupWithImage.js";
 import UserInfo from "./UserInfo.js";
 
@@ -13,6 +14,7 @@ const userProfileConfig = {
   about: ".profile__hobbie",
 };
 
+// Instancia de UserInfo para manejar la información del perfil del usuario
 const userProfile = new UserInfo({
   nameSelector: userProfileConfig.name,
   aboutSelector: userProfileConfig.about,

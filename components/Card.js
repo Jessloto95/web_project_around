@@ -1,13 +1,13 @@
 import { api } from "./Api.js";
 
 export default class Card {
-  constructor(data, selector, handleCardClick, handleDelete) {
+  constructor(data, selector, handleCardClick, handleDeleteConfirm) {
     this._link = data.link;
     this._title = data.name;
     this._id = data._id;
     this._selector = selector;
     this._handleCardClick = handleCardClick;
-    this._handleDelete = handleDelete;
+    this._handleDeleteConfirm = handleDeleteConfirm;
     this._isLiked = data.isLiked;
     this._api = api;
   }
@@ -15,7 +15,7 @@ export default class Card {
   _generateElement() {
     const template = document.querySelector(this._selector).content;
     this._element = template.querySelector(".card__content").cloneNode(true);
-    console.log("cardId", this._id);
+  
     this._cardTitle = this._element.querySelector(".card__photo-name");
     this._cardTitle.textContent = this._title;
     this._cardImage = this._element.querySelector(".card__photo");
@@ -46,7 +46,7 @@ export default class Card {
   _setupEventListeners() {
     // Boton eliminar carta
     this._trashButton.addEventListener("click", () => {
-      this._handleDelete(this._id).then(() => {
+      this._handleDeleteConfirm(this._id, this).then(() => {
         this.deleteCard();
       });
     });
@@ -63,6 +63,7 @@ export default class Card {
   }
   deleteCard() {
     this._element.remove(); // Elimina el elemento de la tarjeta del DOM
+    this._element = null;
   }
 
   _handleLikeClick() {
