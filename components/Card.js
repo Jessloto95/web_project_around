@@ -46,9 +46,7 @@ export default class Card {
   _setupEventListeners() {
     // Boton eliminar carta
     this._trashButton.addEventListener("click", () => {
-      this._handleDeleteConfirm(this._id, this).then(() => {
-        this.deleteCard();
-      });
+      this._handleDeleteConfirm(this._id, this);
     });
 
     //Boton de like

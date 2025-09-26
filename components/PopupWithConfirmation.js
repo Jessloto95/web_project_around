@@ -1,39 +1,39 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithConfirmation extends Popup {
-    constructor(popupSelector) {
-        super(popupSelector);
-        this._form = this.popupElement.querySelector(".popup__form");
-        this.sumbitButton = this._form.querySelector(".popup__button");
-        this._originalButtonText = this.sumbitButton.textContent;
-    } 
+  constructor(popupSelector) {
+    super(popupSelector);
 
-    setSubmitAction(action){
-        this._submitAction = action;
-    }
+    this._submitButton = this.popupElement.querySelector(".popup__button");
+    this._originalButtonText = this._submitButton.textContent;
+  }
 
-    setLoadingState(isLoading, loadingText = "Guardando..."){
-        if(isLoading){
-            this._submitButton.textContent = loadingText;
-            this._submitButton.disabled = true;
-        } else {
-            this._submitButton.textContent = this._originalButtonText;
-            this.sumbitButton.disabled = false;
-        }
-    }
+  setSubmitAction(action) {
+    this._submitAction = action;
+  }
 
-    setEventListeners(){
-        super.setEventListeners();
-        this._form.addEventListener("submit",(evt) => {
-            evt.preventDefault();
-            if (this._submitAction) {
-                this.setSubmitAction();
-            }
-        });
+  setLoadingState(isLoading, loadingText = "Guardando...") {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+      this._submitButton.disabled = true;
+    } else {
+      this._submitButton.textContent = this._originalButtonText;
+      this._submitButton.disabled = false;
     }
+  }
 
-    open(){
-        super.open();
-        this.setLoadingState(false);
-    }
+  setEventListeners() {
+    super.setEventListeners();
+    this.popupElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      if (this._submitAction) {
+        this._submitAction();
+      }
+    });
+  }
+
+  open() {
+    super.open();
+    this.setLoadingState(false);
+  }
 }

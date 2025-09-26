@@ -7,6 +7,9 @@ import PopupWithForm from "./PopupWithForm.js";
 import PopupWithConfirmation from "./PopupWithConfirmation.js";
 import PopupWithImage from "./PopupWithImage.js";
 import UserInfo from "./UserInfo.js";
+// Variables para almacenar la tarjeta que se quiere eliminar
+let cardToDeleteId = null;
+let cardInstanceToDelete = null;
 
 // Configuración de selectores para la información del usuario
 const userProfileConfig = {
@@ -24,8 +27,44 @@ const userProfile = new UserInfo({
 api.getUser()
 .then((userData) =>{
   userProfile.setUserInfo(userData.name, userData.about);
+})
+.catch((err) => {
+  console.error("Error al obtener la información del usuario:", err);
 });
 
+// Instancia del popup de confirmación para eliminar tarjetas
+const popupDeleteCard = new PopupWithConfirmation("#deleteCard");
+popupDeleteCard.setEventListeners();
+
+
+
+// Configurar la acción de confirmación
+popupDeleteCard.setSubmitAction(() => {
+  if (cardToDeleteId && cardInstanceToDelete) {
+    popupDeleteCard.setLoadingState(true,"Guardando..." );
+
+    api.deleteCard(cardToDeleteId)
+    .then(() => {
+      cardInstanceToDelete.deleteCard();
+      popupDeleteCard.close();
+    })
+    .catch((err) => {
+      console.error("Error al eliminar la tarjeta:", err);
+    })
+    .finally(() => {
+    popupDeleteCard.setLoadingState(false);
+    cardToDeleteId = null;
+    cardInstanceToDelete = null;
+    });
+  }
+});
+
+// Función para manejar la confirmación de eliminación
+function handleDeleteConfirmation(cardId, cardInstance) {
+  cardToDeleteId = cardId;
+  cardInstanceToDelete = cardInstance;
+  popupDeleteCard.open();
+}
 
 // Instancia de PopupWithForm para el popup de edición de perfil
 const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
@@ -33,9 +72,16 @@ const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
   .then((updatedUser) => {
     userProfile.setUserInfo(updatedUser.name, updatedUser.about);//Actualiza los datos del la API
   })
+  .catch((err) => {
+    console.error("Error al actualizar el perfil:", err)
+  });
 });
 
 popupProfile.setEventListeners();
+
+// Instancia de PopupWithImage para ver imágenes
+const popupOpenCard = new PopupWithImage("#openImage");
+popupOpenCard.setEventListeners();
 
 //Agregando API para las Trjetas iniciales
 api.getInitialCards().then(function (initialCards) {
@@ -64,9 +110,7 @@ api.getInitialCards().then(function (initialCards) {
           (title, link) => {
             popupOpenCard.open(title, link);
           },
-          (id) => {
-            return api.deleteCard(id);
-          }
+          handleDeleteConfirmation
         );
 
         const cardElement = newCard.createCard();
@@ -77,9 +121,6 @@ api.getInitialCards().then(function (initialCards) {
   );
 
   popupAddCart.setEventListeners();
-
-  const popupOpenCard = new PopupWithImage("#openImage");
-  popupOpenCard.setEventListeners();
 
   // Configuración de la validación de formularios
   const settings = {
@@ -115,10 +156,11 @@ api.getInitialCards().then(function (initialCards) {
       (title, link) => {
         popupOpenCard.open(cardData.title, cardData.link);
       },
-      (id) => {
-        return api.deleteCard(id);
-      }
+      handleDeleteConfirmation
     );
     return newCard.createCard();
   }
-});
+})
+.catch((err) => {
+    console.error("Error al obtener las tarjetas iniciales:", err)
+  });
