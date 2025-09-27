@@ -35,7 +35,19 @@ class Api {
   }
 
   //Modificar imagen del perfil
-  editAvatar() {}
+  editAvatar(avatarLink) {
+    return fetch(`${this.baseUrl}/users/me/avatar`,{
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: avatarLink,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+  }
 
   // Método para obtener las tarjetas iniciales
   getInitialCards() {

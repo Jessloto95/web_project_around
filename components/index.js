@@ -15,12 +15,14 @@ let cardInstanceToDelete = null;
 const userProfileConfig = {
   name: ".profile__name",
   about: ".profile__hobbie",
+  avatar : ".profile__avatar"
 };
 
 // Instancia de UserInfo para manejar la información del perfil del usuario
 const userProfile = new UserInfo({
   nameSelector: userProfileConfig.name,
   aboutSelector: userProfileConfig.about,
+  avatarSelector: userProfileConfig.avatar,
 });
 
 // Cargar la información del usuario desde la API al inicio
@@ -68,16 +70,38 @@ function handleDeleteConfirmation(cardId, cardInstance) {
 
 // Instancia de PopupWithForm para el popup de edición de perfil
 const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
+  popupProfile.setLoadingState(true,"Guardando...");
   api.userEdit(data.name, data.about)
   .then((updatedUser) => {
     userProfile.setUserInfo(updatedUser.name, updatedUser.about);//Actualiza los datos del la API
+    popupProfile.close();
   })
   .catch((err) => {
     console.error("Error al actualizar el perfil:", err)
+  })
+  .finally(() =>{
+    popupProfile.setLoadingState(false);
   });
 });
 
 popupProfile.setEventListeners();
+
+// Nuevo popup para actualizar el avatar
+const popupEditAvatar = new PopupWithForm("#editAvatar", "#formEditAvatar", (data) => {
+  popupEditAvatar.setLoadingState(true,"Guardando...");
+  api.editAvatar(data.avatar)
+  .then((updatedUser) => {
+    userProfile.setAvatar(updatedUser.avatar);
+    popupEditAvatar.close();
+  })
+  .catch((err) => {
+    console.error("Error al actualizar el avatar:", err);
+  })
+  .finally(() => {
+    popupEditAvatar.setLoadingState(false);
+  });
+});
+popupEditAvatar.setEventListeners();
 
 // Instancia de PopupWithImage para ver imágenes
 const popupOpenCard = new PopupWithImage("#openImage");
@@ -103,6 +127,7 @@ api.getInitialCards().then(function (initialCards) {
     "#addImage",
     ".popup__form-add",
     (data) => {
+      popupAddCart.setLoadingState(true, "Creando...")
       api.createCard(data.title, data.url).then(function (card) {
         const newCard = new Card(
           card,
@@ -116,7 +141,11 @@ api.getInitialCards().then(function (initialCards) {
         const cardElement = newCard.createCard();
         console.log(cardElement);
         cardSection.addItem(cardElement);
-      });
+        popupAddCart.close();
+      })
+      .finally(() => {
+        popupAddCart.setLoadingState(false);
+      })
     }
   );
 
@@ -141,6 +170,11 @@ api.getInitialCards().then(function (initialCards) {
     popupProfile.open();
   });
   butaddImage.addEventListener("click", () => popupAddCart.open());
+
+// Evento para abrir el popup de edición de avatar
+document.querySelector(".profile__person-conteiner").addEventListener("click", () => {
+  popupEditAvatar.open();
+});
 
   // Función para crear y devolver un elemento de tarjeta
   function addCard(data) {
