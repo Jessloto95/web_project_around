@@ -7,7 +7,7 @@
     <meta name="author" content="Jessica Flores" />
     <meta name="keywords" content="html, css, javascript" />
     <title>Alrededor de los EE.UU.</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <div class="page">
@@ -57,39 +57,53 @@
           </form>
         </div>
       </div>
-       <!-- Popup para actualizar la imagen de perfil-->
-        <div class="popup" id="editAvatar">
-          <div class="popup__conteiner">
-            <button class="popup__button popup__button_close" id="buttonCloseAvatar">&#x1F7A9;</button>
-            <form class="popup__content" id="formEditAvatar" novalidate>
-              <h2 class="popup__title">Cambiar foto de perfil</h2>
-              <fieldset class="popup__form">
-                <input
+      <!-- Popup para actualizar la imagen de perfil-->
+      <div class="popup" id="editAvatar">
+        <div class="popup__conteiner">
+          <button
+            class="popup__button popup__button_close"
+            id="buttonCloseAvatar"
+          >
+            &#x1F7A9;
+          </button>
+          <form class="popup__content" id="formEditAvatar" novalidate>
+            <h2 class="popup__title">Cambiar foto de perfil</h2>
+            <fieldset class="popup__form">
+              <input
                 type="url"
                 class="popup__input popup__input_hobbie popup__input_type_error"
                 placeholder="Enlace a la nueva imagen"
                 id="avatarLink"
                 name="avatar"
-                required 
-                />
-                <span
+                required
+              />
+              <span
                 id="avatarLink-error"
-                class="popup__input-error popup__error_visible">
+                class="popup__input-error popup__error_visible"
+              >
               </span>
-              </fieldset>
-              <fieldset class="popup__form">
-                <button class="popup__button popup__button_save" disabled>Guardar</button>
-              </fieldset>
-            </form>
-          </div>
+            </fieldset>
+            <fieldset class="popup__form">
+              <button class="popup__button popup__button_save" disabled>
+                Guardar
+              </button>
+            </fieldset>
+          </form>
         </div>
+      </div>
       <!-- Popup Confirmacion eliminar tarjeta-->
       <div class="popup" id="deleteCard">
-        <div class="popup__conteiner ">
-          <button type="button" class="popup__button popup__button_close"id="buttonDeleteCardClose">&#x1F7A9;</button>
+        <div class="popup__conteiner">
+          <button
+            type="button"
+            class="popup__button popup__button_close"
+            id="buttonDeleteCardClose"
+          >
+            &#x1F7A9;
+          </button>
 
-          <form class="popup__content popup__form " name="deleteForm" novalidate>
-            <h2 class="popup__title ">¿Estás seguro?</h2>
+          <form class="popup__content popup__form" name="deleteForm" novalidate>
+            <h2 class="popup__title">¿Estás seguro?</h2>
             <button type="submit" class="popup__button popup__button_save">
               Sí
             </button>
@@ -162,7 +176,7 @@
       </div>
       <header class="header">
         <img
-          src="./images/Vector.png"
+          src="../images/Vector.png"
           alt="logo-around"
           class="header__image"
         />
@@ -172,7 +186,7 @@
           <div class="profile__person-conteiner">
             <img
               class="profile__person"
-              src="./images/Jacques-Cousteau.jpg"
+              src="../images/Jacques-Cousteau.jpg"
               alt="profile-image"
             />
           </div>
@@ -184,7 +198,7 @@
             <button class="profile__edit-button">
               <img
                 class="profile__edit-button-img"
-                src="./images/button_edit.png"
+                src="../images/button_edit.png"
                 alt="Boton para editar perfil"
               />
             </button>
@@ -192,7 +206,7 @@
           <button class="profile__add-button">
             <img
               class="profile__add-button-img"
-              src="./images/button_add.png"
+              src="../images/button_add.png"
               alt="Boton para agregar nueva imagen"
             />
           </button>
@@ -209,7 +223,7 @@
         <img
           class="card__photo"
           id="imagePopup"
-          src="./images/Valle-de-Yosemite.png"
+          src="../images/Valle-de-Yosemite.png"
           alt="valle-yosemite"
         />
         <button class="card__button-delete" id="deleteCard"></button>
@@ -218,13 +232,13 @@
           <button class="card__button-like">
             <img
               class="card__button-like-image"
-              src="./images/button_like.png"
+              src="../images/button_like.png"
               alt="Boton de like"
             />
           </button>
         </div>
       </div>
     </template>
-    <script src="./components/index.js" type="module"></script>
+    <script src="./index.js" type="module"></script>
   </body>
 </html>

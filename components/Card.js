@@ -15,7 +15,7 @@ export default class Card {
   _generateElement() {
     const template = document.querySelector(this._selector).content;
     this._element = template.querySelector(".card__content").cloneNode(true);
-  
+
     this._cardTitle = this._element.querySelector(".card__photo-name");
     this._cardTitle.textContent = this._title;
     this._cardImage = this._element.querySelector(".card__photo");
@@ -30,9 +30,9 @@ export default class Card {
 
     // Establecer el estado inicial del like
     if (this._isLiked) {
-      this._buttonLikeImage.src = "../images/button_like-active.png";
+      this._buttonLikeImage.src = "../../images/button_like-active.png";
     } else {
-      this._buttonLikeImage.src = "../images/button_like.png";
+      this._buttonLikeImage.src = "../../images/button_like.png";
     }
     return this._element;
   }
@@ -68,12 +68,12 @@ export default class Card {
     if (this._isLiked) {
       this._api.removeLikeCard(this._id).then(() => {
         this._isLiked = false;
-        this._buttonLikeImage.src = "../images/button_like.png";
+        this._buttonLikeImage.src = "../../images/button_like.png";
       });
     } else {
       this._api.likeCard(this._id).then(() => {
         this._isLiked = true;
-        this._buttonLikeImage.src = "../images/button_like-active.png";
+        this._buttonLikeImage.src = "../../images/button_like-active.png";
       });
     }
   }

@@ -27,10 +27,10 @@
 }
 
 #deleteCard .popup__conteiner {
-    width: 430px ; 
-    height: 181px;
-    max-width: 430px;
-  }
+  width: 430px;
+  height: 181px;
+  max-width: 430px;
+}
 
 .popup__content {
   background-color: #ffffff;
@@ -39,13 +39,14 @@
 }
 
 #deleteCard .popup__content {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-   
-    padding: 0; 
-    box-sizing: border-box;
-  }
+  width: 430px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 .popup__button {
   font-size: 18px;
@@ -74,7 +75,7 @@
 #deleteCard .popup__button_close {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: -30px;
   top: -50px;
   z-index: 1;
   border: none;
@@ -89,10 +90,9 @@
   padding: 34px 0 54px;
 }
 
- #deleteCard .popup__title {
-    flex-shrink: 0; 
-  }
-
+#deleteCard .popup__title {
+  flex-shrink: 0;
+}
 
 .popup__form {
   width: 360px;
@@ -100,7 +100,6 @@
   border: 0;
   padding: 0;
 }
-
 
 .popup__input_name {
   width: 360px;
@@ -136,12 +135,11 @@
   margin-top: 30px;
 }
 
-  #deleteCard .popup__button_save {
-    width: 358px ;
-    height: 50px ;
-    margin: 0; 
-  
-  } 
+#deleteCard .popup__button_save {
+  width: 358px;
+  height: 50px;
+  margin: 0;
+}
 
 .popup__image-title {
   color: #fff;
@@ -156,13 +154,15 @@
     padding: 0 10px;
   }
 
-
   .popup__content {
     padding: 20px;
     box-sizing: border-box;
   }
 
-
+  #deleteCard .popup__content {
+    width: 240px;
+    height: 181px;
+  }
 
   .popup__button_close {
     right: -5px;
@@ -174,6 +174,9 @@
     margin: 0 22px;
   }
 
+  #deleteCard .popup__title {
+    width: 200px;
+  }
 
   .popup__form {
     max-width: 240px;
@@ -190,5 +193,20 @@
   .popup__button_save {
     max-width: 240px;
   }
- 
+
+  #deleteCard .popup__button_save {
+    width: 200px;
+    height: 50px;
+    margin: 0;
+  }
+
+  #deleteCard .popup__button_close {
+    position: absolute;
+    top: 10px;
+    right: 65px;
+    top: -50px;
+    z-index: 1;
+    border: none;
+    cursor: pointer;
+  }
 }

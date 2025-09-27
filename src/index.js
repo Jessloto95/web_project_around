@@ -1,12 +1,12 @@
-import { api } from "./Api.js";
-import FormValidator from "./FormValidator.js"; // Importa la clase FormValidator
-import { butEdit, butaddImage } from "./utils.js"; // Importa variables y funciones de utils.js
-import Card from "./Card.js";
-import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithConfirmation from "./PopupWithConfirmation.js";
-import PopupWithImage from "./PopupWithImage.js";
-import UserInfo from "./UserInfo.js";
+import { api } from "../components/Api.js";
+import FormValidator from "../components/FormValidator.js"; // Importa la clase FormValidator
+import { butEdit, butaddImage } from "../components/utils.js"; // Importa variables y funciones de utils.js
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 // Variables para almacenar la tarjeta que se quiere eliminar
 let cardToDeleteId = null;
 let cardInstanceToDelete = null;

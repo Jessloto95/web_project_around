@@ -10,7 +10,7 @@ export default class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    const data = {}; 
+    const data = {};
     const inputList = this.formElement.querySelectorAll(".popup__input"); // Selecciona todos los inputs con la clase 'popup__input' dentro del formulario
     inputList.forEach((input) => {
       // Itera sobre cada input
@@ -19,11 +19,11 @@ export default class PopupWithForm extends Popup {
     return data; // Devuelve el objeto con los valores de los inputs
   } // Este método se encarga de recopilar los valores de todos los campos de entrada del formulario.
 
-  setLoadingState(isLoading, loadingText = "Guardando..."){
-    if (isLoading){
+  setLoadingState(isLoading, loadingText = "Guardando...") {
+    if (isLoading) {
       this._submitButton.textContent = loadingText;
       this._submitButton.disabled = true;
-    }else {
+    } else {
       this._submitButton.textContent = this._originalButtonText;
       this._submitButton.disabled = false;
     }
@@ -33,7 +33,7 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners(); // Llama al método setEventListeners de la clase padre para configurar los eventos de cerrar
     this.formElement.addEventListener("submit", (evt) => {
       evt.preventDefault(); // Previene el comportamiento por defecto del envío del formulario
-      this._handleFormSubmit(this._getInputValues());  
+      this._handleFormSubmit(this._getInputValues());
     });
   }
 
