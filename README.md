@@ -17,6 +17,6 @@ El diseño se adapta perfectamente a distintos tamaños de pantalla (mobile, tab
 
 Autor:Jessica Flores
 
- Url: https://jessloto95.github.io/web_project_around/
+Url: https://jessloto95.github.io/web_project_around/
 
 # Tripleten web_project_around

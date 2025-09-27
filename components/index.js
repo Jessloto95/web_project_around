@@ -15,7 +15,7 @@ let cardInstanceToDelete = null;
 const userProfileConfig = {
   name: ".profile__name",
   about: ".profile__hobbie",
-  avatar : ".profile__avatar"
+  avatar: ".profile__person",
 };
 
 // Instancia de UserInfo para manejar la información del perfil del usuario
@@ -26,38 +26,39 @@ const userProfile = new UserInfo({
 });
 
 // Cargar la información del usuario desde la API al inicio
-api.getUser()
-.then((userData) =>{
-  userProfile.setUserInfo(userData.name, userData.about);
-})
-.catch((err) => {
-  console.error("Error al obtener la información del usuario:", err);
-});
+api
+  .getUser()
+  .then((userData) => {
+    userProfile.setUserInfo(userData.name, userData.about);
+    userProfile.setAvatar(userData.avatar);
+  })
+  .catch((err) => {
+    console.error("Error al obtener la información del usuario:", err);
+  });
 
 // Instancia del popup de confirmación para eliminar tarjetas
 const popupDeleteCard = new PopupWithConfirmation("#deleteCard");
 popupDeleteCard.setEventListeners();
 
-
-
 // Configurar la acción de confirmación
 popupDeleteCard.setSubmitAction(() => {
   if (cardToDeleteId && cardInstanceToDelete) {
-    popupDeleteCard.setLoadingState(true,"Guardando..." );
+    popupDeleteCard.setLoadingState(true, "Guardando...");
 
-    api.deleteCard(cardToDeleteId)
-    .then(() => {
-      cardInstanceToDelete.deleteCard();
-      popupDeleteCard.close();
-    })
-    .catch((err) => {
-      console.error("Error al eliminar la tarjeta:", err);
-    })
-    .finally(() => {
-    popupDeleteCard.setLoadingState(false);
-    cardToDeleteId = null;
-    cardInstanceToDelete = null;
-    });
+    api
+      .deleteCard(cardToDeleteId)
+      .then(() => {
+        cardInstanceToDelete.deleteCard();
+        popupDeleteCard.close();
+      })
+      .catch((err) => {
+        console.error("Error al eliminar la tarjeta:", err);
+      })
+      .finally(() => {
+        popupDeleteCard.setLoadingState(false);
+        cardToDeleteId = null;
+        cardInstanceToDelete = null;
+      });
   }
 });
 
@@ -70,65 +71,125 @@ function handleDeleteConfirmation(cardId, cardInstance) {
 
 // Instancia de PopupWithForm para el popup de edición de perfil
 const popupProfile = new PopupWithForm("#editProfile", "#formEdit", (data) => {
-  popupProfile.setLoadingState(true,"Guardando...");
-  api.userEdit(data.name, data.about)
-  .then((updatedUser) => {
-    userProfile.setUserInfo(updatedUser.name, updatedUser.about);//Actualiza los datos del la API
-    popupProfile.close();
-  })
-  .catch((err) => {
-    console.error("Error al actualizar el perfil:", err)
-  })
-  .finally(() =>{
-    popupProfile.setLoadingState(false);
-  });
+  popupProfile.setLoadingState(true, "Guardando...");
+  api
+    .userEdit(data.name, data.about)
+    .then((updatedUser) => {
+      userProfile.setUserInfo(updatedUser.name, updatedUser.about); //Actualiza los datos del la API
+      popupProfile.close();
+    })
+    .catch((err) => {
+      console.error("Error al actualizar el perfil:", err);
+    })
+    .finally(() => {
+      popupProfile.setLoadingState(false);
+    });
 });
 
 popupProfile.setEventListeners();
 
 // Nuevo popup para actualizar el avatar
-const popupEditAvatar = new PopupWithForm("#editAvatar", "#formEditAvatar", (data) => {
-  popupEditAvatar.setLoadingState(true,"Guardando...");
-  api.editAvatar(data.avatar)
-  .then((updatedUser) => {
-    userProfile.setAvatar(updatedUser.avatar);
-    popupEditAvatar.close();
-  })
-  .catch((err) => {
-    console.error("Error al actualizar el avatar:", err);
-  })
-  .finally(() => {
-    popupEditAvatar.setLoadingState(false);
-  });
-});
+const popupEditAvatar = new PopupWithForm(
+  "#editAvatar",
+  "#formEditAvatar",
+  (data) => {
+    popupEditAvatar.setLoadingState(true, "Guardando...");
+    api
+      .editAvatar(data.avatar)
+      .then((updatedUser) => {
+        userProfile.setAvatar(updatedUser.avatar);
+        popupEditAvatar.close();
+      })
+      .catch((err) => {
+        console.error("Error al actualizar el avatar:", err);
+      })
+      .finally(() => {
+        popupEditAvatar.setLoadingState(false);
+      });
+  }
+);
 popupEditAvatar.setEventListeners();
 
 // Instancia de PopupWithImage para ver imágenes
 const popupOpenCard = new PopupWithImage("#openImage");
 popupOpenCard.setEventListeners();
 
+let cardSection = {};
 //Agregando API para las Trjetas iniciales
-api.getInitialCards().then(function (initialCards) {
-  const cardSection = new Section(
-    {
-      items: initialCards,
-      renderer: (item) => {
-        console.log(item);
-        cardSection.addItem(addCard(item));
+api
+  .getInitialCards()
+  .then(function (initialCards) {
+    cardSection = new Section(
+      {
+        items: initialCards,
+        renderer: (item) => {
+          console.log(item);
+          cardSection.addItem(addCard(item));
+        },
       },
-    },
-    ".card"
-  );
+      ".card"
+    );
 
-  cardSection.renderer();
+    cardSection.renderer();
 
-  // Instancia de PopupWithForm para el popup de añadir nueva imagen
-  const popupAddCart = new PopupWithForm(
-    "#addImage",
-    ".popup__form-add",
-    (data) => {
-      popupAddCart.setLoadingState(true, "Creando...")
-      api.createCard(data.title, data.url).then(function (card) {
+    // Configuración de la validación de formularios
+    const settings = {
+      formSelector: ".popup__content",
+      inputSelector: ".popup__input",
+      submitButtonSelector: ".popup__button",
+    };
+
+    // Instancia de FormValidator para habilitar la validación en los formularios
+    const formValidate = new FormValidator(settings);
+    formValidate.enableValidation();
+
+    // Eventos de botones
+    butEdit.addEventListener("click", () => {
+      const currentUserInfo = userProfile.getUserInfo();
+      document.querySelector("#name").value = currentUserInfo.name;
+      document.querySelector("#about").value = currentUserInfo.about;
+      popupProfile.open();
+    });
+    butaddImage.addEventListener("click", () => popupAddCart.open());
+
+    // Evento para abrir el popup de edición de avatar
+    document
+      .querySelector(".profile__person-conteiner")
+      .addEventListener("click", () => {
+        popupEditAvatar.open();
+      });
+
+    // Función para crear y devolver un elemento de tarjeta
+    function addCard(data) {
+      const cardData = {
+        _id: data._id,
+        name: data.name,
+        link: data.link,
+        isLiked: data.isLiked,
+      };
+      const newCard = new Card(
+        cardData,
+        ".template-card",
+        (title, link) => {
+          popupOpenCard.open(cardData.name, cardData.link);
+        },
+        handleDeleteConfirmation
+      );
+      return newCard.createCard();
+    }
+  })
+  .catch((err) => {
+    console.error("Error al obtener las tarjetas iniciales:", err);
+  });
+// Instancia de PopupWithForm para el popup de añadir nueva imagen
+const popupAddCart = new PopupWithForm(
+  "#addImage",
+  ".popup__form-add",
+  (data) => {
+    popupAddCart.setLoadingState(true, "Creando...");
+    api
+      .createCard(data.title, data.url)
+      .then(function (card) {
         const newCard = new Card(
           card,
           ".template-card",
@@ -145,56 +206,7 @@ api.getInitialCards().then(function (initialCards) {
       })
       .finally(() => {
         popupAddCart.setLoadingState(false);
-      })
-    }
-  );
-
-  popupAddCart.setEventListeners();
-
-  // Configuración de la validación de formularios
-  const settings = {
-    formSelector: ".popup__content",
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__button",
-  };
-
-  // Instancia de FormValidator para habilitar la validación en los formularios
-  const formValidate = new FormValidator(settings);
-  formValidate.enableValidation();
-
-  // Eventos de botones
-  butEdit.addEventListener("click", () => {
-    const currentUserInfo = userProfile.getUserInfo();
-    document.querySelector("#name").value = currentUserInfo.name;
-    document.querySelector("#about").value = currentUserInfo.about;
-    popupProfile.open();
-  });
-  butaddImage.addEventListener("click", () => popupAddCart.open());
-
-// Evento para abrir el popup de edición de avatar
-document.querySelector(".profile__person-conteiner").addEventListener("click", () => {
-  popupEditAvatar.open();
-});
-
-  // Función para crear y devolver un elemento de tarjeta
-  function addCard(data) {
-    const cardData = {
-      _id: data._id,
-      name: data.name,
-      link: data.link,
-      isLiked: data.isLiked,
-    };
-    const newCard = new Card(
-      cardData,
-      ".template-card",
-      (title, link) => {
-        popupOpenCard.open(cardData.title, cardData.link);
-      },
-      handleDeleteConfirmation
-    );
-    return newCard.createCard();
+      });
   }
-})
-.catch((err) => {
-    console.error("Error al obtener las tarjetas iniciales:", err)
-  });
+);
+popupAddCart.setEventListeners();
